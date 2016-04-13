@@ -3,7 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <title>Blog</title>
-    <!-- TODO: Add a meta tag to properly set the viewport and initial scale -->
+    <!-- TODO: Add a meta tag to properly set the viewport and initial scale
+  wnat the website to show up on full phone view.  This does not make site
+responsive it just says fill the viewport screen.   Set it on every website from
+here on out.  Like a title tag, always do it!  Google:  it.-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="vendor/styles/normalize.css">
     <link rel="stylesheet" href="styles/icons.css">
     <link rel="stylesheet" href="styles/base.css">
@@ -19,7 +23,11 @@
         <h2>The shocking power of static pages</h2>
       </section>
       <nav class="main-nav">
-        <!-- TODO: Add a hamburger menu icon here. -->
+        <!-- TODO: Add a hamburger menu icon here. On a desktop viewport I want this to dispay a hamburger,
+      on a mobile it should disappear; the icon is already in the code. use combinator selector type with
+    image tag.  on mobile first developmemnt my navigation should have dispaly of none.  Thus hamburger is
+  not dispayed.  Display none on mobile.  Display block on other viewport.-->
+
         <ul>
           <li class="tab" data-content="articles"><a href="#" class="icon-home"> Home</a></li>
           <li class="tab" data-content="about"><a href="#" class="icon-address-book"> About</a></li>
