@@ -1,5 +1,6 @@
-.site-header {
+ .site-header {
   background: #FFEAAA;
+  position: relative;
 }
 
 /* DONE: Float the main header to the left, to make room for the hamburger menu. */
@@ -8,9 +9,11 @@
   padding: 0 0 .2em 1em;
 }
 
-/* TODO: Add styles for the icon-menu class. It should be bigger, and off to the right. */
+/* DONE: Add styles for the icon-menu class. It should be bigger, and off to the right. */
 .icon-menu {
-
+  position: absolute;
+  right: 10px;
+  top: 40px;
 }
 
 .main-nav {
@@ -54,6 +57,7 @@
 }
 
 /* TODO: Now add styles for how things should look on a larger screen (hint: min is in!):
+use min-width
          - Hide the hamburger.
          - Main should be all on one row, with padding spaced better for a larger screen.
          - Just, ya know, try to make it look good! */
