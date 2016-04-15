@@ -91,18 +91,17 @@ articleView.create = function() {
   });
 
   // TODO: Use our interface to the Handblebars template to put this new article into the DOM:
-    $('#article-preview').append(formArticle.toHtml());
+  $('#article-preview').append(formArticle.toHtml());
 
   // TODO: Activate the highlighting of any code blocks:
-    $('pre code').each(function(i, block) {
-      hljs.highlightBlock(block);
-    });
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
 
   // TODO: Export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
-    $('#export-field').show();
-    $('#article-json').val(JSON.stringify(formArticle) + ',');
+  $('#export-field').show();
+  $('#article-json').val(JSON.stringify(formArticle) + ',');
 };
-
 
 articleView.initIndexPage = function() {
   articleView.populateFilters();
