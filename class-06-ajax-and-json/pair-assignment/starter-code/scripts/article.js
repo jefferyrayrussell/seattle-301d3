@@ -66,13 +66,9 @@ Article.fetchAll = function() {
     // 4. And then render the index page (perhaps with an articleView method?).
 
     $.getJSON('data/hackerIpsum.json', function(data) {
-
         Article.loadAll(data);
         localStorage.setItem = ('hackerIpsum', JSON.stringify(data));
-
         articleView.initIndexPage();
-
-
 };
 
 /* Great work so far! STRETCH GOAL TIME! Cache the eTag located in Headers, to see if it's updated!
