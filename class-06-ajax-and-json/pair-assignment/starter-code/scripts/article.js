@@ -17,7 +17,7 @@ Article.all = [];
 Article.prototype.toHtml = function() {
   var template = Handlebars.compile($('#article-template').text());
 
-  this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
+  this.daysAgo = parseInt((new Date() - new Date(this.publishedOn)) / 60 / 60 / 24 / 1000);
   this.publishStatus = this.publishedOn ? 'published ' + this.daysAgo + ' days ago' : '(draft)';
   this.body = marked(this.body);
 
@@ -38,8 +38,8 @@ Article.loadAll = function(dataPassedIn) {
 
   dataPassedIn.forEach(function(ele) {
     Article.all.push(new Article(ele));
-  })
-}
+  });
+};
 
 // This function below will retrieve the data from either a local or remote source,
 // and process it, then hand off control to the View.
@@ -56,7 +56,7 @@ Article.fetchAll = function() {
   } else {
     // TODO: When we don't already have our data, we need to:
     // 1. Retrieve the JSON file from the server with AJAX (which jQuery method is best for this?),
-
+// stringify and parseit  getJSON
     // 2. Store the resulting JSON data with the .loadAll method,
 
     // 3. Cache it in localStorage so we can skip the server call next time,
@@ -64,7 +64,7 @@ Article.fetchAll = function() {
     // 4. And then render the index page (perhaps with an articleView method?).
 
   }
-}
+};
 
 /* Great work so far! STRETCH GOAL TIME! Cache the eTag located in Headers, to see if it's updated!
   Article.fetchAll = function() {
