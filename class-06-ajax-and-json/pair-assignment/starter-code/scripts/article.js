@@ -49,14 +49,15 @@ Article.fetchAll = function() {
     // we can load it by calling the .loadAll() method,
     // and then render the index page (using the proper method on the articleView object).
     Article.loadAll(
-      JSON.parse(localeStorage.hackerIpsum));
+      JSON.parse(localeStorage.hackerIpsum)
+    );
     // articleView.initIndexPage();
       //DONE: What do we pass in here to the .loadAll() method? Be careful
       // when handling different data types between here and localStorage!
     articleView.initIndexPage(); //DONE: Change this fake method call
     // one that will render the index page.
   } else {
-    // TODO: When we don't already have our data, we need to:
+    // Done: When we don't already have our data, we need to:
     // 1. Retrieve the JSON file from the server with AJAX (which jQuery method is best for this?),
 // stringify and parseit  getJSON
     // 2. Store the resulting JSON data with the .loadAll method,
@@ -66,9 +67,11 @@ Article.fetchAll = function() {
     // 4. And then render the index page (perhaps with an articleView method?).
 
     $.getJSON('data/hackerIpsum.json', function(data) {
-        Article.loadAll(data);
-        localStorage.setItem = ('hackerIpsum', JSON.stringify(data));
-        articleView.initIndexPage();
+      Article.loadAll(data);
+      localStorage.hackerIpsum = (JSON.stringify(Article.all));
+    });
+    articleView.initIndexPage();
+  }
 };
 
 /* Great work so far! STRETCH GOAL TIME! Cache the eTag located in Headers, to see if it's updated!
