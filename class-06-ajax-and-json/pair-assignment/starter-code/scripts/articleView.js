@@ -109,6 +109,4 @@ articleView.initIndexPage = function() {
   articleView.handleAuthorFilter();
   articleView.handleMainNav();
   articleView.setTeasers();
-  articleView.initIndexPage();
 };
-// Done//This needs to be called somewhere

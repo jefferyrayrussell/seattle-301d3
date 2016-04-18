@@ -49,7 +49,7 @@ Article.fetchAll = function() {
     // we can load it by calling the .loadAll() method,
     // and then render the index page (using the proper method on the articleView object).
     Article.loadAll(
-      JSON.parse(localeStorage.hackerIpsum)
+      JSON.parse(localStorage.hackerIpsum)
     );
     // articleView.initIndexPage();
       //DONE: What do we pass in here to the .loadAll() method? Be careful
@@ -68,9 +68,9 @@ Article.fetchAll = function() {
 
     $.getJSON('data/hackerIpsum.json', function(data) {
       Article.loadAll(data);
-      localStorage.hackerIpsum = (JSON.stringify(Article.all));
+      localStorage.hackerIpsum = JSON.stringify(data);
+      articleView.initIndexPage();
     });
-    articleView.initIndexPage();
   }
 };
 
