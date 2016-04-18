@@ -109,5 +109,6 @@ articleView.initIndexPage = function() {
   articleView.handleAuthorFilter();
   articleView.handleMainNav();
   articleView.setTeasers();
+  articleView.initIndexPage();
 };
-TO DO //This needs to be called somewhere
+// Done//This needs to be called somewhere
