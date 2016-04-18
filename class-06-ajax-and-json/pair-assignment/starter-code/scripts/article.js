@@ -48,10 +48,11 @@ Article.fetchAll = function() {
     // When our data is already in localStorage,
     // we can load it by calling the .loadAll() method,
     // and then render the index page (using the proper method on the articleView object).
-    Article.loadAll(//TODO: What do we pass in here to the .loadAll() method? Be careful
+    Article.loadAll(JSON.parse(localeStorage.hackerIpsum));
+    articleView.initIndexPage();
+      //DONE: What do we pass in here to the .loadAll() method? Be careful
       // when handling different data types between here and localStorage!
-    );
-    articleView.someFunctionToCall//(); //TODO: Change this fake method call to the correct
+    articleView.initIndexPage(); //DONE: Change this fake method call
     // one that will render the index page.
   } else {
     // TODO: When we don't already have our data, we need to:
