@@ -82,3 +82,23 @@ Article.fetchAll = function() {
   } else {}
 }
 */
+Article.fetchAll = function() {
+    $.ajax({
+     type: 'GET',
+     url: 'data/hackerIpsum.json',
+     success: function(data, message, xhrs) {
+       var eTag = xhrs.getResponseHeader('eTag');
+       if (eTag === localStorage.eTag) {
+         Article.loadAll(JSON.parse(localStorage.hackerIpsum));
+         articleView.initIndexPage();
+        } else {
+         $.getJSON('data/hackerIpsum.json', function(data) {
+           Article.loadAll(data);
+           localStorage.hackerIpsum = JSON.stringify(data);
+           localStorage.eTag = eTag;
+           articleView.initIndexPage();
+         });
+       }
+    }
+   });
+ };
