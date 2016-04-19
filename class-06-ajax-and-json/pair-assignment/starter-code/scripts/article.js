@@ -59,12 +59,17 @@ Article.fetchAll = function() {
   } else {
     // Done: When we don't already have our data, we need to:
     // 1. Retrieve the JSON file from the server with AJAX (which jQuery method is best for this?),
+<<<<<<< HEAD
 // stringify and parseit  getJSON
     // 2. Store the resulting JSON data with the .loadAll method,
+=======
 
-    // 3. Cache it in localStorage so we can skip the server call next time,
+    // 2. Store the resulting JSON data with the .loadAll method (inside our jQuery method),
+>>>>>>> 96171956af5b85962ec34d83cd207f192c4b2d96
 
-    // 4. And then render the index page (perhaps with an articleView method?).
+    // 3. Cache it in localStorage so we can skip the server call next time (still inside our jQuery method),
+
+    // 4. And then render the index page (perhaps with an articleView method?) (still inside our jQuery method).
 
     $.getJSON('data/hackerIpsum.json', function(data) {
       Article.loadAll(data);
