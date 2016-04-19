@@ -85,10 +85,10 @@ Article.getAll = function() {
 // DONE: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
 Article.numWordsAll = function() {
     return Article.all.map(function(article) {
-        return article.body.match(/\b\w+/g).length;
+            return article.body.match(/\b\w+/g).length;
 
             // Grab the words from the `article` `body` (hint: lookup String.prototype.match() and regexp!).
-    })
+        })
         .reduce(function(acc, cur) {
             acc = acc + cur;
             return acc; // Sum up all the values!
@@ -98,16 +98,16 @@ Article.numWordsAll = function() {
 // TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names.
 Article.allAuthors = function() {
     return Article.all.map(function(article) {
-        return article.author;
-    })
-    .reduce(function(acc, cur) {
-        if(acc.indexOf(cur)===-1){
-            acc.push(cur);  
-        }
-        return acc;
-    },[]);
+            return article.author;
+        })
+        .reduce(function(acc, cur) {
+            if (acc.indexOf(cur) === -1) {
+                acc.push(cur);
+            }
+            return acc;
+        }, []);
 
-     // map our collection
+    // map our collection
     // return just the author names
 
     // For our `reduce` that we'll chain here -- since we are trying to return an array, we'll need to specify an accumulator type...
@@ -115,17 +115,27 @@ Article.allAuthors = function() {
 };
 
 Article.numWordsByAuthor = function() {
-    // TODO: Transform each element into an object with 2 properties: One for
+    // DONE: Transform each element into an object with 2 properties: One for
     // the author's name, and one for the total number of words across the matching articles
     // written by the specified author.
     return Article.allAuthors().map(function(author) {
         return {
-            // name:
-            // numWords: someCollection.filter(function(curArticle) {
-            //  what do we return here to check for matching authors?
-            // })
-            // .map(...) // use .map to return the author's word count for each article (hint: regexp!).
-            // .reduce(...) // squash this array of numbers into one big number!
+            name: author,
+            numWords: Article.all.filter(function(curArt) {
+                    return curArt.author == author;
+                }).map(function(article) {
+                    return article.body.match(/\b\w+/g).length;
+                })
+                .reduce(function(acc, cur) {
+                    acc = acc + cur;
+                    return acc; 
+                })
+                // name:
+                // numWords: someCollection.filter(function(curArticle) {
+                //  what do we return here to check for matching authors?
+                // })
+                // .map(...) // use .map to return the author's word count for each article (hint: regexp!).
+                // .reduce(...) // squash this array of numbers into one big number!
         };
     });
 };
