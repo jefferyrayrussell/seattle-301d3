@@ -1,41 +1,44 @@
 // TODO: Wrap the entire contents of this file in an IIFE.
-// Pass in to the IIFE a module, upon which objects can be attached for later access.
-function Article (opts) {
-  this.author = opts.author;
-  this.authorUrl = opts.authorUrl;
-  this.title = opts.title;
-  this.category = opts.category;
-  this.body = opts.body;
-  this.publishedOn = opts.publishedOn;
-}
+// Pass in to the IIFE a module, upon which objects can be attached for later access.  What is an IFFE? Immediately Invoked Function Execution; an anonymous function that will run immediately.
 
-Article.all = [];
+//(function(module) {
 
-Article.prototype.toHtml = function() {
-  var template = Handlebars.compile($('#article-template').text());
+  function Article (opts) {
+    this.author = opts.author;
+    this.authorUrl = opts.authorUrl;
+    this.title = opts.title;
+    this.category = opts.category;
+    this.body = opts.body;
+    this.publishedOn = opts.publishedOn;
+  }
 
-  this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
-  this.publishStatus = this.publishedOn ? 'published ' + this.daysAgo + ' days ago' : '(draft)';
-  this.body = marked(this.body);
+  Article.all = [];
 
-  return template(this);
-};
+  Article.prototype.toHtml = function() {
+    var template = Handlebars.compile($('#article-template').text());
 
-Article.loadAll = function(dataPassedIn) {
-  dataPassedIn.sort(function(a,b) {
-    return (new Date(b.publishedOn)) - (new Date(a.publishedOn));
-  });
+    this.daysAgo = parseInt((new Date() - new Date(this.publishedOn)) / 60 / 60 / 24 / 1000);
+    this.publishStatus = this.publishedOn ? 'published ' + this.daysAgo + ' days ago' : '(draft)';
+    this.body = marked(this.body);
+
+    return template(this);
+  };
+
+  Article.loadAll = function(dataPassedIn) {
+    dataPassedIn.sort(function(a,b) {
+      return (new Date(b.publishedOn)) - (new Date(a.publishedOn));
+    });
 
   // DONE: Refactor the forEach code below using `.map()` -  since what we are
-  // trying to accomplish is the transformation of one colleciton into another.
+  // trying to accomplish is the transformation of one collection into another.
 
   // dataPassedIn.forEach(function(ele) {
   //   Article.all.push(new Article(ele));
   // })
-  Article.all = dataPassedIn.map(function(ele) {
-    return new Article(ele);
-  });
-};
+    Article.all = dataPassedIn.map(function(ele) {
+      return new Article(ele);
+    });
+  };
 
 // This function will retrieve the data from either a local or remote source,
 // and process it, then hand off control to the View.
@@ -45,7 +48,10 @@ Article.loadAll = function(dataPassedIn) {
 // that will execute once the loading of articles is done. We do this because we might want
 // to call other view functions, and not just the initIndexPage() that we are replacing.
 // Now, instead of calling articleView.initIndexPage(), we can just run our callback.
-Article.fetchAll = function() {
+
+//Article.All = Article.fetchAll(function(someParameter) {
+
+Article.fetchAll = function(func) {
   if (localStorage.hackerIpsum) {
     $.ajax({
       type: 'HEAD',
@@ -57,7 +63,8 @@ Article.fetchAll = function() {
           Article.getAll();
         } else {
           Article.loadAll(JSON.parse(localStorage.hackerIpsum));
-          articleView.initIndexPage();
+          //articleView.initIndexPage();
+          func();
         }
       }
     });
@@ -66,23 +73,26 @@ Article.fetchAll = function() {
   }
 };
 
-Article.getAll = function() {
-  $.getJSON('/data/hackerIpsum.json', function(responseData) {
-    Article.loadAll(responseData);
-    localStorage.hackerIpsum = JSON.stringify(responseData);
-    articleView.initIndexPage();
-  });
-};
+  Article.getAll = function() {
+    $.getJSON('/data/hackerIpsum.json', function(responseData) {
+      Article.loadAll(responseData);
+      localStorage.hackerIpsum = JSON.stringify(responseData);
+      //articleView.initIndexPage();
+      func();
+    });
+  };
 
 // TODO: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
-Article.numWordsAll = function() {
-  return Article.all.map(function(article) {
-    return // Grab the words from the `article` `body` (hint: lookup String.prototype.match() and regexp!).
+  Article.numWordsAll = function() {
+    return Article.all.map(function(article) {
+      return article.body.match(/\b\w+/g).length;
+
+    // Grab the words from the `article` `body` (hint: lookup String.prototype.match() and regexp!).
+    })
+    .reduce(function(a, b) {
+      return // Sum up all the values!
   })
-  .reduce(function(a, b) {
-    return // Sum up all the values!
-  })
-};
+  };
 
 // TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names.
 Article.allAuthors = function() {
@@ -108,3 +118,6 @@ Article.numWordsByAuthor = function() {
     }
   })
 };
+
+  //module.articleView = articleView;
+//})(window);

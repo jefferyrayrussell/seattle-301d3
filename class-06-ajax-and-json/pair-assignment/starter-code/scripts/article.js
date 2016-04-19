@@ -17,7 +17,7 @@ Article.all = [];
 Article.prototype.toHtml = function() {
   var template = Handlebars.compile($('#article-template').text());
 
-  this.daysAgo = parseInt((new Date() - new Date(this.publishedOn)) / 60 / 60 / 24 / 1000);
+  this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
   this.publishStatus = this.publishedOn ? 'published ' + this.daysAgo + ' days ago' : '(draft)';
   this.body = marked(this.body);
 
@@ -38,8 +38,8 @@ Article.loadAll = function(dataPassedIn) {
 
   dataPassedIn.forEach(function(ele) {
     Article.all.push(new Article(ele));
-  });
-};
+  })
+}
 
 // This function below will retrieve the data from either a local or remote source,
 // and process it, then hand off control to the View.
@@ -48,36 +48,23 @@ Article.fetchAll = function() {
     // When our data is already in localStorage,
     // we can load it by calling the .loadAll() method,
     // and then render the index page (using the proper method on the articleView object).
-    Article.loadAll(
-      JSON.parse(localStorage.hackerIpsum)
-    );
-    // articleView.initIndexPage();
-      //DONE: What do we pass in here to the .loadAll() method? Be careful
+    Article.loadAll(//TODO: What do we pass in here to the .loadAll() method? Be careful
       // when handling different data types between here and localStorage!
-    articleView.initIndexPage(); //DONE: Change this fake method call
+    );
+    articleView.someFunctionToCall//(); //TODO: Change this fake method call to the correct
     // one that will render the index page.
   } else {
-    // Done: When we don't already have our data, we need to:
+    // TODO: When we don't already have our data, we need to:
     // 1. Retrieve the JSON file from the server with AJAX (which jQuery method is best for this?),
-<<<<<<< HEAD
-// stringify and parseit  getJSON
-    // 2. Store the resulting JSON data with the .loadAll method,
-=======
 
     // 2. Store the resulting JSON data with the .loadAll method (inside our jQuery method),
->>>>>>> 96171956af5b85962ec34d83cd207f192c4b2d96
 
     // 3. Cache it in localStorage so we can skip the server call next time (still inside our jQuery method),
 
     // 4. And then render the index page (perhaps with an articleView method?) (still inside our jQuery method).
 
-    $.getJSON('data/hackerIpsum.json', function(data) {
-      Article.loadAll(data);
-      localStorage.hackerIpsum = JSON.stringify(data);
-      articleView.initIndexPage();
-    });
   }
-};
+}
 
 /* Great work so far! STRETCH GOAL TIME! Cache the eTag located in Headers, to see if it's updated!
   Article.fetchAll = function() {
@@ -87,24 +74,4 @@ Article.fetchAll = function() {
   } else {}
 }
 */
-Article.fetchAll = function() {
-  $.ajax({
-    type: 'GET',
-    url: 'data/hackerIpsum.json',
-    success: function(data, message, xhr) {
-      console.log('success function worked', xhr);
-      var eTag = xhr.getResponseHeader('eTag');
-      if (eTag === localStorage.eTag) {
-        Article.loadAll(JSON.parse(localStorage.hackerIpsum));
-        articleView.initIndexPage();
-      } else {
-        $.getJSON('data/hackerIpsum.json', function(data) {
-          Article.loadAll(data);
-          localStorage.hackerIpsum = JSON.stringify(data);
-          localStorage.eTag = eTag;
-          articleView.initIndexPage();
-        });
-      }
-    }
-  });
-};
+git
