@@ -7,7 +7,7 @@
   //  'end point' provided by server.js.
   repos.requestRepos = function(callback) {
     $.ajax({
-      url: 'https://api.github.com/users/codefellows/repos' +
+      url: '/github/users/jefferyrayrussell/repos' +
             '?per_page=10' +
             '&sort=updated',
       type: 'GET',
